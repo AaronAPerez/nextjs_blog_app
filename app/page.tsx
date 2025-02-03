@@ -2,10 +2,10 @@
 
 import { Suspense } from 'react';
 import BlogList from "@/components/blog/BlogList";
-import { Post } from "@/types/blog";
 import Loading from '@/components/loading/Loading';
 import { usePosts } from '@/hooks/usePosts';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import DatabaseStatus from '@/components/DatabaseStatus';
 
 export default function Home() {
   // Use the custom hook to fetch posts
@@ -45,6 +45,7 @@ export default function Home() {
             className="space-y-8"
           >
             <ErrorBoundary>
+              <DatabaseStatus />
             <BlogList
               posts={posts}
               onPostClick={handlePostClick}
