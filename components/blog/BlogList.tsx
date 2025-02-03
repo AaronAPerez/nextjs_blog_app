@@ -1,3 +1,5 @@
+'use client';
+
 import { Post } from '../../types/blog';
 import { BlogCard } from './BlogCard';
 

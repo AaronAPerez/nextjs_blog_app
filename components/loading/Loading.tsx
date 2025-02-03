@@ -1,3 +1,5 @@
+'use client';
+
 import { HTMLAttributes } from 'react';
 
 // Interface for component props
@@ -11,6 +13,7 @@ interface LoadingProps extends HTMLAttributes<HTMLDivElement> {
   // Whether loading takes up full container width
   fullWidth?: boolean;
 }
+
 
 export const Loading = ({
   size = 'medium',

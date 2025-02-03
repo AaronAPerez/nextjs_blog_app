@@ -1,5 +1,8 @@
+'use client';
+
+import { ButtonProps } from '@/types';
 import { forwardRef } from 'react';
-import type { ButtonProps } from '../../types';
+
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ 

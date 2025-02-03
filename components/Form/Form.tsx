@@ -71,7 +71,6 @@ export const Form = () => {
       </div>
 
       <Button
-        type="submit"
         variant="primary"
         aria-label="Submit login form"
       >
