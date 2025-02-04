@@ -61,7 +61,7 @@ export default function RootLayout({
           </nav>
 
           {/* Main Content */}
-          <main id="main-content" className="pb-16">
+          <main id="main-content" className="pb-16 bg-gray-200">
             {children}
           </main>
 

@@ -36,7 +36,7 @@ export default function Home() {
           Welcome to Our Blog
           {/* <Navigation/> */}
           <NavItem href="/dashboard" // Must be a non-empty string
-            icon={HomeIcon}
+            icon={<HomeIcon />}
             children={undefined} />
         </h1>
 
@@ -45,17 +45,8 @@ export default function Home() {
             aria-label="Blog posts"
             className="space-y-8"
           >
-
-
-
-
-
-
           </section>
-
         </Suspense>
-
-
         <footer className="mt-auto py-8 bg-gray-50">
           <div className="container mx-auto px-4">
             <nav aria-label="Footer Navigation">

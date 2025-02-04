@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Home, Bell, Bookmark, User, Settings } from 'lucide-react';
 import NavItem from '@/app/NavItem';
 
+
 interface LayoutProps {
   children: ReactNode;
 }
