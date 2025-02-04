@@ -1,22 +1,18 @@
 'use client';
 
 import { Suspense } from 'react';
-import BlogList from "@/components/blog/BlogList";
 import Loading from '@/components/loading/Loading';
 import { usePosts } from '@/hooks/usePosts';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 import DatabaseStatus from '@/components/DatabaseStatus';
+import { HomeIcon } from 'lucide-react';
+import NavItem from './NavItem';
+
+
 
 export default function Home() {
   // Use the custom hook to fetch posts
-  const { posts, loading, error } = usePosts();
+  const { loading, error } = usePosts();
 
-  // Handle post click functionality
-  const handlePostClick = (id: string) => {
-    // Handle post click
-    console.log(`Post clicked: ${id}`);
-    // Add your navigation or other functionality here
-  };
 
   // Show loading state while fetching posts
   if (loading) {
@@ -35,33 +31,40 @@ export default function Home() {
   return (
     <>
       <main id="main-content" className="flex-1 container mx-auto px-4 py-8">
+
         <h1 className="text-4xl font-bold mb-8">
           Welcome to Our Blog
+          {/* <Navigation/> */}
+          <NavItem href="/dashboard" // Must be a non-empty string
+            icon={HomeIcon}
+            children={undefined} />
         </h1>
-        
+
         <Suspense fallback={<Loading />}>
-          <section 
+          <section
             aria-label="Blog posts"
             className="space-y-8"
           >
-            <ErrorBoundary>
-              <DatabaseStatus />
-            <BlogList
-              posts={posts}
-              onPostClick={handlePostClick}
-            />
-            </ErrorBoundary>
+
+
+
+
+
+
           </section>
+
         </Suspense>
-      </main>
+
+
+        <footer className="mt-auto py-8 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <nav aria-label="Footer Navigation">
       
-      <footer className="mt-auto py-8 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <nav aria-label="Footer Navigation">
-            {/* Add footer navigation content here */}
-          </nav>
-        </div>
-      </footer>
+              <DatabaseStatus />
+            </nav>
+          </div>
+        </footer>
+      </main>
     </>
   );
 }

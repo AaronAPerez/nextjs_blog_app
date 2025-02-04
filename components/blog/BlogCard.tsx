@@ -1,64 +1,80 @@
-'use client';
-
-import { Post } from '../../types/blog';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Post } from '@/types/blog';
+import { format } from 'date-fns';
 
 interface BlogCardProps {
   post: Post;
-  onClick?: (id: string) => void;
+  onPostClick?: (id: string) => void;
 }
 
-
-export const BlogCard = ({ post, onClick }: BlogCardProps) => {
-    const formattedDate = new Date(post.publishDate).toLocaleDateString();
-    
-    return (
-      <article 
-        className="rounded-lg shadow-md hover:shadow-lg transition-shadow"
-        onClick={() => onClick?.(post.id)}
-      >
-        {post.imageUrl && (
-          <img
+export const BlogCard = ({ post, onPostClick }: BlogCardProps) => {
+  return (
+    <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+      {post.imageUrl && (
+        <div className="relative w-full h-48">
+          <Image
             src={post.imageUrl}
-            alt={`Cover image for ${post.title}`}
-            className="w-full h-48 object-cover rounded-t-lg"
+            alt=""
+            fill
+            className="object-cover"
+            priority={false}
           />
-        )}
-        <div className="p-4">
-          <h2 className="text-xl font-bold mb-2">
-            <a 
-              href={`/blog/${post.id}`}
-              className="hover:text-blue-600"
-              aria-label={`Read ${post.title}`}
-            >
-              {post.title}
-            </a>
-          </h2>
-          <div className="flex items-center mb-4">
-            <img
-              src={post.author.avatar}
-              alt={post.author.name}
-              className="w-8 h-8 rounded-full mr-2"
-            />
-            <span className="text-gray-600">{post.author.name}</span>
-            <span className="mx-2">•</span>
-            <time dateTime={post.publishDate.toISOString()}>
-              {formattedDate}
-            </time>
-          </div>
+        </div>
+      )}
+
+      <div className="p-6">
+        <h2 className="text-xl font-bold mb-2">
+          <Link 
+            href={`/posts/${post.id}`}
+            onClick={(e) => {
+              if (onPostClick) {
+                e.preventDefault();
+                onPostClick(post.id);
+              }
+            }}
+            className="hover:text-blue-600 transition-colors"
+          >
+            {post.title}
+          </Link>
+        </h2>
+
+        <div className="flex items-center text-sm text-gray-500 mb-4">
+          {post.author.avatar && (
+            <div className="relative w-6 h-6 mr-2">
+              <Image
+                src={post.author.avatar}
+                alt=""
+                fill
+                className="rounded-full object-cover"
+                sizes="24px"
+              />
+            </div>
+          )}
+          <span>{post.author.name}</span>
+          <span className="mx-2">•</span>
+          <time dateTime={post.publishDate.toISOString()}>
+            {format(new Date(post.publishDate), 'MMM d, yyyy')}
+          </time>
+        </div>
+
+        {post.excerpt && (
           <p className="text-gray-600 mb-4">{post.excerpt}</p>
-          <div className="flex gap-2">
+        )}
+
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
             {post.tags.map(tag => (
-              <span 
+              <span
                 key={tag}
-                className="px-2 py-1 bg-gray-100 rounded-full text-sm"
+                className="px-2 py-1 bg-gray-100 rounded-full text-sm text-gray-600"
               >
-                {tag}
+                #{tag}
               </span>
             ))}
           </div>
-        </div>
-      </article>
-    );
-  };
-
-  export default BlogCard;
+        )}
+      </div>
+    </article>
+  );
+};

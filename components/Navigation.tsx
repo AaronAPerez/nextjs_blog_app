@@ -1,30 +1,37 @@
-import { NavLink } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export function Navigation() {
+  const pathname = usePathname();
+  
   return (
-    <nav className="bg-white shadow-sm">
+    <nav className="bg-white shadow-sm" aria-label="Main Navigation">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <NavLink 
-            to="/"
-            className={({ isActive }) => 
-              `text-lg font-medium ${isActive ? 'text-blue-600' : 'text-gray-700'}`
-            }
+          <Link 
+            href="/"
+            className={`text-lg font-medium ${
+              pathname === '/' ? 'text-blue-600' : 'text-gray-700'
+            }`}
+            aria-current={pathname === '/' ? 'page' : undefined}
           >
             Blog
-          </NavLink>
+          </Link>
           
           <div className="flex space-x-4">
-            <NavLink
-              to="/tags"
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-md ${
-                  isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:text-blue-600'
-                }`
-              }
+            <Link
+              href="/tags"
+              className={`px-3 py-2 rounded-md ${
+                pathname === '/tags' 
+                  ? 'bg-blue-50 text-blue-600' 
+                  : 'text-gray-700 hover:text-blue-600'
+              }`}
+              aria-current={pathname === '/tags' ? 'page' : undefined}
             >
               Tags
-            </NavLink>
+            </Link>
           </div>
         </div>
       </div>
